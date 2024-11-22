@@ -48,6 +48,7 @@ const TodoEditor = ({ addTodo }) => {
             className='pr-20 pl-2 py-2 text-black'
           />
           <button
+            disabled={!task}
             onClick={onCloseKey}
             className={classNames(
               'flex justify-center items-center w-8 h-8 absolute right-0 top-1 text-black visible',
