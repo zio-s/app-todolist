@@ -7,7 +7,7 @@ import { mockTodoData } from '@/data/MockTodoData';
 
 const Todo = () => {
   const [todos, setTodos] = useState(mockTodoData);
-  //완료표시 함수
+
   const onUpdate = (id) => {
     setTodos(
       todos.map((todo) => {
@@ -15,11 +15,11 @@ const Todo = () => {
       })
     );
   };
-  //삭제 함수
+
   const onDelete = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
-  //할일 추가 하는 함수
+
   const addTodo = (task) => {
     const newTodo = {
       id: todos.length + 1,

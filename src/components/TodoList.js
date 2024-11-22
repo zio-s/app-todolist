@@ -21,15 +21,7 @@ const TodoList = ({ mockTodoData, onUpdate, onDelete }) => {
       />
       <ul>
         {FilteredTodos().map((item) => (
-          <TodoItem
-            key={item.id}
-            {...item}
-            onUpdate={onUpdate}
-            onDelete={onDelete}
-            // createDate={item.createDate}
-            // isDone={item.isDone}
-            // task={item.task}
-          />
+          <TodoItem key={item.id} {...item} onUpdate={onUpdate} onDelete={onDelete} />
         ))}
       </ul>
     </div>

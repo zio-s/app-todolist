@@ -5,20 +5,19 @@ import React, { useRef, useState } from 'react';
 
 const TodoEditor = ({ addTodo }) => {
   const [task, setTask] = useState('');
-  //inputRe 변수가 useRef()를 통해 생성된 객체를 참조하도록 설정
+
   const inputRef = useRef();
   const onchangeTask = (e) => {
     setTask(e.target.value);
   };
 
   const onsubmit = () => {
-    //빈 입력방지 기능
     if (!task) {
       return;
     }
-    // 할일 추가
+
     addTodo(task);
-    // 입력창 초기화 및 포커스
+
     setTask('');
     inputRef.current.focus();
   };
