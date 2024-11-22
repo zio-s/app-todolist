@@ -1,16 +1,37 @@
 import React from 'react';
 
-const TodoItem = ({ mockTodoData }) => {
+const TodoItem = ({ id, task, createDate, isDone, onUpdate, onDelete }) => {
   return (
     <>
-      {mockTodoData.map((item) => (
-        <li key={item.id}>
-          <input type='checkbox' name='' id='' />
-          <strong>{item.task}</strong>
-          <span>{item.createDate}</span>
-          <button>삭제</button>
-        </li>
-      ))}
+      <li key={id} className='p-3 bg-purple-900 cursor-pointer hover:bg-purple-500 rounded-lg my-4 flex items-center'>
+        <input
+          className='mr-2'
+          type='checkbox'
+          checked={isDone}
+          onChange={() => {
+            onUpdate(id);
+          }}
+          name=''
+          id=''
+        />
+        <strong
+          onClick={() => {
+            onUpdate(id);
+          }}
+          className={`${isDone === false ? '' : 'line-through'}`}
+        >
+          {task}
+        </strong>
+        <span className='ml-auto text-sm'>{createDate}</span>
+        <button
+          className='ml-2'
+          onClick={() => {
+            onDelete(id);
+          }}
+        >
+          삭제
+        </button>
+      </li>
     </>
   );
 };
