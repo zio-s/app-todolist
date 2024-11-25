@@ -40,12 +40,8 @@ export default function RootLayout({ children }) {
       <head>
         <title>TodoList</title>
       </head>
-      <themeContext.Provider value={themes.light}>
-        <body>
-          <ToggleButton />
-          {children}
-        </body>
-      </themeContext.Provider>
+
+      <body>{children}</body>
     </html>
   );
 }
