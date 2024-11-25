@@ -1,11 +1,12 @@
 'use client';
 import classNames from 'classnames';
 import { IoClose } from 'react-icons/io5';
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
+import { themeContext } from '@/app/layout';
 
 const TodoEditor = ({ addTodo }) => {
   const [task, setTask] = useState('');
-
+  const theme = useContext(themeContext);
   const inputRef = useRef();
   const onchangeTask = (e) => {
     setTask(e.target.value);
@@ -34,7 +35,7 @@ const TodoEditor = ({ addTodo }) => {
   };
   return (
     <div>
-      <h2>새로운 Todo 작성하기</h2>
+      <h2 className={theme.text}>새로운 Todo 작성하기</h2>
       <form className='flex'>
         <div className='flex relative'>
           <input
@@ -44,14 +45,16 @@ const TodoEditor = ({ addTodo }) => {
             onKeyDown={onKeyDown}
             onChange={onchangeTask}
             placeholder='할 일을 입력해주세요.'
-            className='pr-20 pl-2 py-2 text-black'
+            className={classNames('pr-20 pl-2 py-2 ', theme.input, `text-${theme.white}`)}
           />
           <button
             disabled={!task}
             onClick={onCloseKey}
             className={classNames(
-              'flex justify-center items-center w-8 h-8 absolute right-0 top-1 text-black visible',
-              task === '' ? 'invisible' : 'visible'
+              'flex justify-center items-center w-8 h-8 absolute right-0 top-1 visible',
+              task === '' ? 'invisible' : 'visible',
+              theme.text,
+              theme.btn
             )}
           >
             <IoClose />

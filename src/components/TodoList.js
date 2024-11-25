@@ -17,7 +17,7 @@ const TodoList = ({ mockTodoData, onUpdate, onDelete }) => {
         onChange={(e) => {
           setSearch(e.target.value);
         }}
-        className='p-3 w-full text-black'
+        className={`p-3 w-full text-black`}
       />
       <ul>
         {FilteredTodos().map((item) => (

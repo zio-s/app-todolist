@@ -1,44 +1,45 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import TodoHd from './TodoHd';
 import TodoEditor from './TodoEditor';
 import TodoList from './TodoList';
+import { ADD_TODO, DELETE_TODO, setTodos, UPDATE_TODO } from '@/states/todoReducer';
+import { themeContext } from '@/app/layout';
+import classNames from 'classnames';
 
 const Todo = () => {
-  const [todos, setTodos] = useState([]);
+  // const [todos, setTodos] = useState([]);
+  const [todos, dispatch] = useReducer(setTodos, []);
+  const LOCAL_STORAGE_KEY = 'my-todo-app-todos';
+  const theme = useContext(themeContext);
 
   useEffect(() => {
-    const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
+    const savedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
 
-    setTodos(savedTodos);
+    // setTodos(savedTodos);
+    savedTodos.forEach((todo) => {
+      return dispatch({ type: ADD_TODO, payload: todo });
+    });
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
   }, [todos]);
+
   const onUpdate = (id) => {
-    setTodos(
-      todos.map((todo) => {
-        return todo.id === id ? { ...todo, isDone: !todo.isDone } : todo;
-      })
-    );
+    dispatch({ type: UPDATE_TODO, payload: { id } });
   };
 
   const onDelete = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    dispatch({ type: DELETE_TODO, payload: { id } });
   };
 
   const addTodo = (task) => {
-    const newTodo = {
-      id: todos.length + 1,
-      isDone: false,
-      task: task,
-      createDate: new Date().toLocaleDateString(),
-    };
-    setTodos([newTodo, ...todos]);
+    dispatch({ type: ADD_TODO, payload: { task } });
   };
+
   return (
-    <div className='max-w-3xl mx-auto mt-10 p-6 shadow-lg rounded-lg bg-gray-400'>
+    <div className={classNames('max-w-3xl mx-auto mt-10 p-6 shadow-lg rounded-lg', theme.background)}>
       <TodoHd />
       <TodoEditor addTodo={addTodo} />
       <TodoList mockTodoData={todos} onUpdate={onUpdate} onDelete={onDelete} />
