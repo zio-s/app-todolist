@@ -5,7 +5,7 @@ export const ADD_TODO = 'ADD_TODO';
 export const UPDATE_TODO = 'UPDATE_TODO';
 export const DELETE_TODO = 'DELETE_TODO';
 
-export const todoReducer = (state, action) => {
+export const setTodos = (state, action) => {
   // action = {type: 'UPDATE_TODO', payload: {id: 1}}
   // state = [{id: 1, task: '할일', isDone: false}, {...}, {...}]
   switch (action.type) {
